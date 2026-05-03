@@ -287,7 +287,7 @@ if __name__ == "__main__":
     async def health(request):
         return JSONResponse({"status": "ok"})
 
-   app = Starlette(routes=[
+    app = Starlette(routes=[
         Route("/", health),
         Route("/health", health),
         Mount("/mcp", app=mcp.streamable_http_app()),

@@ -287,9 +287,10 @@ if __name__ == "__main__":
     async def health(request):
         return JSONResponse({"status": "ok"})
 
-    app = Starlette(routes=[
+   app = Starlette(routes=[
+        Route("/", health),
         Route("/health", health),
-        Mount("/", app=mcp.streamable_http_app()),
+        Mount("/mcp", app=mcp.streamable_http_app()),
     ])
 
     uvicorn.run(app, host="0.0.0.0", port=MCP_PORT)

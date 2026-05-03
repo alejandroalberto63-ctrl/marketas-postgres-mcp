@@ -279,4 +279,7 @@ async def pg_precio_m2_por_sector() -> str:
 
 # ── Run ───────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    mcp.run(transport="sse", host="0.0.0.0", port=80)
+    import os
+    os.environ["FASTMCP_HOST"] = "0.0.0.0"
+    os.environ["FASTMCP_PORT"] = "80"
+    mcp.run(transport="sse")

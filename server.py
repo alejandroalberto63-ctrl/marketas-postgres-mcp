@@ -278,7 +278,18 @@ async def pg_precio_m2_por_sector() -> str:
 
 
 # ── Run ───────────────────────────────────────────────────────────────────────
-# ── Run ───────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(mcp.streamable_http_app(), host="0.0.0.0", port=MCP_PORT)
+    from starlette.applications import Starlette
+    from starlette.responses import JSONResponse
+    from starlette.routing import Route, Mount
+
+    async def health(request):
+        return JSONResponse({"status": "ok"})
+
+    app = Starlette(routes=[
+        Route("/health", health),
+        Mount("/", app=mcp.streamable_http_app()),
+    ])
+
+    uvicorn.run(app, host="0.0.0.0", port=MCP_PORT)

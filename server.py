@@ -278,8 +278,7 @@ async def pg_precio_m2_por_sector() -> str:
 
 
 # ── Run ───────────────────────────────────────────────────────────────────────
+# ── Run ───────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    import os
-    os.environ.setdefault("FASTMCP_HOST", "0.0.0.0")
-    os.environ.setdefault("FASTMCP_PORT", str(MCP_PORT))
-    mcp.run(transport="streamable-http")
+    import uvicorn
+    uvicorn.run(mcp.streamable_http_app(), host="0.0.0.0", port=MCP_PORT)
